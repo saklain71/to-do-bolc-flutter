@@ -26,13 +26,6 @@ class TaskBloc extends Bloc<TaskEvent, TaskState> {
     on<EditTask>(_onEditTask);
   }
 
-  void _onEditTask( event , Emitter<TaskState> emit){
-    try{
-
-    }catch(e){
-
-    }
-  }
 
   void _onLoadTasks(LoadTasks event, Emitter<TaskState> emit) async {
     emit(TaskLoading());
@@ -52,6 +45,8 @@ class TaskBloc extends Bloc<TaskEvent, TaskState> {
     }
   }
 
+
+
   void _onUpdateTask(UpdateTask event, Emitter<TaskState> emit) async {
     if (state is TaskLoaded) {
       final updatedTasks = (state as TaskLoaded).tasks.map((task) {
@@ -61,6 +56,29 @@ class TaskBloc extends Bloc<TaskEvent, TaskState> {
       emit(TaskLoaded(updatedTasks));
     }
   }
+
+  // on<AddTask>((event, emit) async {
+  //   try {
+  //     await taskRepository.addTask(event.task);
+  //     final updatedTasks = List<TaskEntity>.from(state.tasks)..add(event.task);
+  //     emit(TaskLoaded(updatedTasks, message: "Task added successfully!"));
+  //   } catch (e) {
+  //     emit(TaskError("Failed to add task: ${e.toString()}"));
+  //   }
+  // });
+
+  void _onEditTask(EditTask event , Emitter<TaskState> emit)async{
+    // try{
+    //   final editTask = (state as TaskLoaded).tasks.map((task){
+    //     return task.id == event.taskEdit.id ? event.taskEdit : task;
+    //   }).toList();
+    //   await editTaskCase(event.ediTask);
+    //
+    // }catch(e){
+    //
+    // }
+  }
+
 
   void _onDeleteTask(DeleteTask event, Emitter<TaskState> emit) async {
     if (state is TaskLoaded) {

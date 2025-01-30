@@ -96,7 +96,8 @@ class TaskListScreen extends StatelessWidget {
                       IconButton(
                           icon : Icon(Icons.edit, color: Colors.black45,),
                         onPressed: () {
-                            BlocProvider.of<TaskBloc>(context);
+                            _showEditTaskDialog(context, task);
+                            // BlocProvider.of<TaskBloc>(context);
                         },
                       ),
                       IconButton(
@@ -173,4 +174,35 @@ class TaskListScreen extends StatelessWidget {
       },
     );
   }
+
+  void _showEditTaskDialog(BuildContext context, TaskEntity task) {
+    final TextEditingController _taskController = TextEditingController(text: task.title);
+
+    showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: Text('Edit Task'),
+          content: TextField(controller: _taskController, decoration: InputDecoration(hintText: 'Enter new task title')),
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.pop(context),
+              child: Text('Cancel'),
+            ),
+            ElevatedButton(
+              onPressed: () {
+                final updatedTitle = _taskController.text.trim();
+                if (updatedTitle.isNotEmpty) {
+                  BlocProvider.of<TaskBloc>(context).add(UpdateTask(task.copyWith(title: updatedTitle)));
+                }
+                Navigator.pop(context);
+              },
+              child: Text('Update'),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
 }
