@@ -33,12 +33,14 @@ class TaskBloc extends Bloc<TaskEvent, TaskState> {
       final tasks = await getTasksUseCase();
       emit(TaskLoaded(tasks));
     } catch (e) {
-      emit(TaskError("Failed to load tasks"));
+      // emit(TaskError("No Task List"));
     }
   }
 
   void _onAddTask(AddTask event, Emitter<TaskState> emit) async {
     if (state is TaskLoaded) {
+      print('addTask');
+      print('addTask ${event.task}');
       final updatedTasks = List<TaskEntity>.from((state as TaskLoaded).tasks)..add(event.task);
       await addTaskUseCase(event.task);
       emit(TaskLoaded(updatedTasks, message: "Task added on the list"));

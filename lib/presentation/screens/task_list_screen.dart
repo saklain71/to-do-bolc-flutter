@@ -86,10 +86,11 @@ class TaskListScreen extends StatelessWidget {
                     mainAxisSize: MainAxisSize.min,
                     children: [
                       Checkbox(
-                        value: task.isCompleted,
+                        value: task.isCompleted == 0 ?  false : true,
                         onChanged: (value) {
+                          print(value);
                           BlocProvider.of<TaskBloc>(context).add(
-                            UpdateTask(task.copyWith(isCompleted: value ?? false)),
+                            UpdateTask(task.copyWith(isCompleted: value == true ? 1 :  0)),
                           );
                         },
                       ),
@@ -120,7 +121,7 @@ class TaskListScreen extends StatelessWidget {
               },
             );
           } else {
-            return Center(child: Text('Error loading tasks.'));
+            return const Center(child: Text('There is no task in list.'));
           }
         },
       ),
@@ -163,6 +164,7 @@ class TaskListScreen extends StatelessWidget {
               onPressed: () {
                 final taskTitle = _taskController.text.trim();
                 if (taskTitle.isNotEmpty) {
+
                   BlocProvider.of<TaskBloc>(context).add(AddTask(TaskEntity(id: DateTime.now().toString(), title: taskTitle)));
                 }
                 Navigator.pop(context);
@@ -193,7 +195,7 @@ class TaskListScreen extends StatelessWidget {
               onPressed: () {
                 final updatedTitle = _taskController.text.trim();
                 if (updatedTitle.isNotEmpty) {
-                  BlocProvider.of<TaskBloc>(context).add(UpdateTask(task.copyWith(title: updatedTitle)));
+                  BlocProvider.of<TaskBloc>(context).add(UpdateTask(task.copyWith(title: updatedTitle, isCompleted: 0)));
                 }
                 Navigator.pop(context);
               },

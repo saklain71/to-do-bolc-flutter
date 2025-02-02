@@ -17,14 +17,14 @@ class TaskEntity {
   final String id;
   final String title;
   final String? description;
-  final bool isCompleted;
+  final int isCompleted;
   final String? review;
 
   TaskEntity({
     required this.id,
     required this.title,
     this.description,
-    this.isCompleted = false,
+    this.isCompleted = 0,
     this.review,
   });
 
@@ -33,14 +33,14 @@ class TaskEntity {
     String? id,
     String? title,
     String? description,
-    bool? isCompleted,
+    int? isCompleted,
     String? review,
   }) {
     return TaskEntity(
       id: id ?? this.id,
       title: title ?? this.title,
       description: description ?? this.description,
-      isCompleted: isCompleted ?? this.isCompleted,
+      isCompleted: isCompleted ?? 0,
       review: review ?? this.review,
     );
   }
