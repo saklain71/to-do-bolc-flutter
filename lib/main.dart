@@ -1,13 +1,16 @@
 
 
+import 'package:block_flutter/data/datasources/user_api_service.dart';
 import 'package:block_flutter/presentation/bloc/task_bloc/task_bloc.dart';
 import 'package:block_flutter/presentation/bloc/task_bloc/task_event.dart';
+import 'package:block_flutter/presentation/screens/home_screen.dart';
 import 'package:block_flutter/presentation/screens/task_list_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'data/datasources/task_local_data_source.dart';
 import 'data/repositories/task_repository_impl.dart';
+import 'domain/repositories/user_repository.dart';
 import 'domain/usecases/usecases.dart';
 
 void main() {
@@ -18,6 +21,11 @@ void main() {
   final updateTaskUseCase = UpdateTaskUseCase(taskRepository);
   final deleteTaskUseCase = DeleteTaskUseCase(taskRepository);
   final editTaskCase = EditTaskUseCase(taskRepository);
+
+  // // Initialize User API Service and Repository
+  // final userApiService = UserApiService();
+  // final userRepository = UserRepositiry(apiService: userApiService);
+
 
   runApp(MyApp(
     getTasksUseCase: getTasksUseCase,
@@ -61,7 +69,7 @@ class MyApp extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         title: 'Flutter To-Do List',
         theme: ThemeData(primarySwatch: Colors.blue),
-        home: TaskListScreen(),
+        home: HomeScreen(),
       ),
     );
   }

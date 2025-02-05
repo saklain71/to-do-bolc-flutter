@@ -6,7 +6,7 @@ class TaskModel extends TaskEntity {
     required String title,
     int isCompleted = 0,
     String? review
-  }) : super(id: id, title: title,isCompleted: 0, review: review);
+  }) : super(id: id, title: title, isCompleted: isCompleted, review: review);
 
   factory TaskModel.fromJson(Map<String, dynamic> json) {
     return TaskModel(

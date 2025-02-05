@@ -17,6 +17,7 @@ class TaskLocalDataSourceImpl implements TaskLocalDataSource {
   static Database? _database;
 
   Future<Database> get database async {
+    print('called databse');
     if (_database != null) return _database!;
     _database = await _initDB();
     return _database!;

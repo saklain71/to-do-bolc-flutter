@@ -107,6 +107,12 @@ class TaskListScreen extends StatelessWidget {
                           BlocProvider.of<TaskBloc>(context).add(DeleteTask(task.id));
                         },
                       ),
+                      IconButton(
+                        icon: Icon(Icons.alarm, color: Colors.blueAccent),
+                        onPressed: () {
+                          BlocProvider.of<TaskBloc>(context).add(DeleteTask(task.id));
+                        },
+                      ),
                     ],
                   ),
                   onTap: () {
