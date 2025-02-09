@@ -1,3 +1,6 @@
+import 'dart:io';
+
+import 'package:alarm/alarm.dart';
 import 'package:block_flutter/presentation/bloc/task_bloc/task_bloc.dart';
 import 'package:block_flutter/presentation/bloc/task_bloc/task_event.dart';
 import 'package:block_flutter/presentation/bloc/task_bloc/task_state.dart';
@@ -7,6 +10,34 @@ import '../../../domain/entities/task_entity.dart';
 import 'task_details_screen.dart';
 
 class TaskListScreen extends StatelessWidget {
+
+
+  final alarmSettings = AlarmSettings(
+    id: 1,
+    dateTime: DateTime(2025),
+    assetAudioPath: 'assets/alarm.mp3',
+    loopAudio: true,
+    vibrate: true,
+    warningNotificationOnKill: Platform.isIOS,
+    androidFullScreenIntent: true,
+    // volumeSettings: VolumeSettings.fixed(
+    //   volume: 0.8,
+    //   fadeDuration: Duration(seconds: 5),
+    //   volumeEnforced: true,
+    // ),
+    volume: 0.8,
+    // fadeDuration: Duration(days: 0, hours: 0, minutes: 0, seconds: 0, milliseconds: 0, microseconds: 0),
+    fadeDuration: 5,
+    volumeEnforced: true,
+    notificationSettings: const NotificationSettings(
+      title: 'This is the title',
+      body: 'This is the body',
+      stopButton: 'Stop the alarm',
+      icon: 'notification_icon',
+    ),
+  );
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -109,8 +140,10 @@ class TaskListScreen extends StatelessWidget {
                       ),
                       IconButton(
                         icon: Icon(Icons.alarm, color: Colors.blueAccent),
-                        onPressed: () {
-                          BlocProvider.of<TaskBloc>(context).add(DeleteTask(task.id));
+                        onPressed: () async {
+                          // await Alarm.set(alarmSettings: alarmSettings);
+                          await Alarm.setWarningNotificationOnKill("Alarm", "Wake Up");
+                          // BlocProvider.of<TaskBloc>(context).add(DeleteTask(task.id));
                         },
                       ),
                     ],

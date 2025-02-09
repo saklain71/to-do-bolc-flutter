@@ -58,7 +58,7 @@ class UserListScreen extends StatelessWidget {
           useripository: UserRepository(apiservice: UserApiService())
       )..add(FetchUsers()), // 🔹 API call triggered here
       child: Scaffold(
-        backgroundColor: Colors.green,
+        backgroundColor: Colors.tealAccent,
         appBar: AppBar(title: Text('Users')),
         body: BlocBuilder<UserBloc, UserState>(
           builder: (context, state) {

@@ -1,11 +1,13 @@
 
 
+import 'package:alarm/alarm.dart';
 import 'package:block_flutter/data/datasources/user_api_service.dart';
 import 'package:block_flutter/presentation/bloc/task_bloc/task_bloc.dart';
 import 'package:block_flutter/presentation/bloc/task_bloc/task_event.dart';
 import 'package:block_flutter/presentation/screens/home_screen.dart';
 import 'package:block_flutter/presentation/screens/task_list_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'data/datasources/task_local_data_source.dart';
@@ -13,7 +15,14 @@ import 'data/repositories/task_repository_impl.dart';
 import 'domain/repositories/user_repository.dart';
 import 'domain/usecases/usecases.dart';
 
-void main() {
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
+
+  // setupLogging(showDebugLogs: true);
+
+  await Alarm.init();
+
   final taskLocalDataSource = TaskLocalDataSourceImpl();
   final taskRepository = TaskRepositoryImpl(localDataSource: taskLocalDataSource);
   final getTasksUseCase = GetTasksUseCase(taskRepository);
